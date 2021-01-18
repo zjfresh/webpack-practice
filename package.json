@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "webpack-chain": "^6.4.0"
+  },
+  "scripts": {
+    "log": "node index.js > o",
+    "build": "npx webpack --config index.js"
+  },
+  "devDependencies": {
+    "eslint": "^7.18.0",
+    "eslint-webpack-plugin": "^2.4.1",
+    "html-webpack-plugin": "^4.3.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^4.3.1"
+  }
+}
