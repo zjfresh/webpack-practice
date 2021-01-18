@@ -1,17 +1,26 @@
-const webpackChain = require('webpack-chain');
 const path = require('path');
 
-let config = new webpackChain();
+const webpackChain = require('webpack-chain');
 
 const ESLintPlugin = require('eslint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-config.mode('development');
-config.entry('entry1').add('./entry1.js');
-config
+let config = new webpackChain();
+
+// config.mode('development')
+config.mode('production')
+
+    .entry('entry1').add('./entry1.js')
+    .end()
+
     .entry('entry2')
     .add('./entry2.js')
     .end()
+    
+    .optimization
+    .minimize(false)
+    .end()
+
     .output /* .path(path.resolve('dist')) */
     .filename('[name].bundle.js');
 
@@ -38,7 +47,7 @@ config.plugin('lint').use(ESLintPlugin, [
         overrideConfig: {
             parserOptions: { ecmaVersion: 2020 },
             rules: {
-                semi: 'error',
+                // semi: 'error',
             },
         },
         // fix: true
@@ -50,6 +59,7 @@ config
     .use(HtmlWebpackPlugin, [
         {
             template: './index.html',
+            minify: false,
         },
     ])
     .tap((args) => {

@@ -81,42 +81,35 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ "./entry1.js":
-/*!*******************!*\
-  !*** ./entry1.js ***!
-  \*******************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("const sum = __webpack_require__(/*! ./sum */ \"./sum.js\");\n\nmodule.exports = function (...args) {\n    return sum(...args)\n}\n\n//# sourceURL=webpack:///./entry1.js?");
-
-/***/ }),
-
-/***/ "./sum.js":
-/*!****************!*\
-  !*** ./sum.js ***!
-  \****************/
-/*! no static exports found */
+/******/ ([
+/* 0 */
 /***/ (function(module, exports) {
 
-eval("module.exports = function(...args) {\n    return args.reduce((prev, next) => {\n        return prev + next\n    })\n}\n\n//# sourceURL=webpack:///./sum.js?");
+module.exports = function(...args) {
+    return args.reduce((prev, next) => {
+        return prev + next
+    })
+}
 
 /***/ }),
-
-/***/ 0:
-/*!*************************!*\
-  !*** multi ./entry1.js ***!
-  \*************************/
-/*! no static exports found */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("module.exports = __webpack_require__(/*! ./entry1.js */\"./entry1.js\");\n\n\n//# sourceURL=webpack:///multi_./entry1.js?");
+module.exports = __webpack_require__(2);
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const sum = __webpack_require__(0);
+
+module.exports = function (...args) {
+    return sum(...args)
+}
 
 /***/ })
-
-/******/ });
+/******/ ]);

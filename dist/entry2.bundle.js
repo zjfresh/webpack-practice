@@ -81,53 +81,44 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ "./entry2.js":
-/*!*******************!*\
-  !*** ./entry2.js ***!
-  \*******************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("const { num1, num2 } = __webpack_require__(/*! ./lib */ \"./lib.js\");\nconst sum = __webpack_require__(/*! ./sum */ \"./sum.js\");\n\nmodule.exports = sum(num1, num2)\n\n//# sourceURL=webpack:///./entry2.js?");
-
-/***/ }),
-
-/***/ "./lib.js":
-/*!****************!*\
-  !*** ./lib.js ***!
-  \****************/
-/*! no static exports found */
+/******/ ([
+/* 0 */
 /***/ (function(module, exports) {
 
-eval("module.exports.num1 = 123\n\nmodule.exports.num2 = 456\n\n//# sourceURL=webpack:///./lib.js?");
+module.exports = function(...args) {
+    return args.reduce((prev, next) => {
+        return prev + next
+    })
+}
 
 /***/ }),
-
-/***/ "./sum.js":
-/*!****************!*\
-  !*** ./sum.js ***!
-  \****************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("module.exports = function(...args) {\n    return args.reduce((prev, next) => {\n        return prev + next\n    })\n}\n\n//# sourceURL=webpack:///./sum.js?");
-
-/***/ }),
-
-/***/ 1:
-/*!*************************!*\
-  !*** multi ./entry2.js ***!
-  \*************************/
-/*! no static exports found */
+/* 1 */,
+/* 2 */,
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("module.exports = __webpack_require__(/*! ./entry2.js */\"./entry2.js\");\n\n\n//# sourceURL=webpack:///multi_./entry2.js?");
+module.exports = __webpack_require__(4);
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const { num1, num2 } = __webpack_require__(5);
+const sum = __webpack_require__(0);
+
+module.exports = sum(num1, num2)
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+module.exports.num1 = 123
+
+module.exports.num2 = 456
 
 /***/ })
-
-/******/ });
+/******/ ]);
