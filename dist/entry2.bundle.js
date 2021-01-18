@@ -57,7 +57,8 @@
 /******/ 	// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 	// Promise = chunk loading, 0 = chunk loaded
 /******/ 	var installedChunks = {
-/******/ 		2: 0
+/******/ 		2: 0,
+/******/ 		3: 0
 /******/ 	};
 /******/
 /******/ 	var deferredModules = [];
@@ -148,37 +149,37 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([3,0]);
+/******/ 	deferredModules.push([4,0]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */,
-/* 1 */,
-/* 2 */,
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(4);
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const { num1, num2 } = __webpack_require__(5);
-const sum = __webpack_require__(0);
-
-module.exports = sum(num1, num2)
-
-/***/ }),
-/* 5 */
+/* 0 */
 /***/ (function(module, exports) {
 
 module.exports.num1 = 123
 
 module.exports.num2 = 456
+
+/***/ }),
+/* 1 */,
+/* 2 */,
+/* 3 */,
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(5);
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const { num1, num2 } = __webpack_require__(0);
+const sum = __webpack_require__(1);
+
+module.exports = sum(num1, num2)
 
 /***/ })
 /******/ ]);

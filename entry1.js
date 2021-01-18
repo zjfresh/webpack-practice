@@ -1,5 +1,10 @@
 const sum = require('./sum');
 
-module.exports = function (...args) {
-    return sum(...args)
+module.exports = {
+    getSum: function(...args) {
+        return sum(...args)
+    },
+    getNum: function () {
+        return import('./lib').num1
+    }
 }
