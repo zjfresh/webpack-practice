@@ -149,7 +149,7 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([4,0]);
+/******/ 	deferredModules.push([6,0]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -166,18 +166,23 @@ module.exports.num2 = 456
 /* 1 */,
 /* 2 */,
 /* 3 */,
-/* 4 */
+/* 4 */,
+/* 5 */,
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(5);
+module.exports = __webpack_require__(7);
 
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const { num1, num2 } = __webpack_require__(0);
 const sum = __webpack_require__(1);
+// import n1 from './normal1';
+// import n2 from './normal2';
+const n3 = __webpack_require__(2) // 一个独立的module，若无共同引或其它规则，不会被webpack当作一个chunk，而是作为引用其的chunk的依赖，进行相关打包
 
 module.exports = sum(num1, num2)
 

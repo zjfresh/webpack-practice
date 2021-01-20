@@ -9,5 +9,12 @@ module.exports = function(...args) {
     })
 }
 
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+// export default 'normal2'
+module.exports = 'n3'
+
 /***/ })
 ]]);

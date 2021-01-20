@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs');
 
 const webpackChain = require('webpack-chain');
+const webpack = require('webpack');
 
 const ESLintPlugin = require('eslint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -37,7 +38,12 @@ config.mode('production')
     .end()
     
     .optimization
+    // .set('chunkIds', 'named')
     .minimize(false)
+    // .minimizer('js') // 上行取消压缩，这个注释插件反而可以直接加在plugins中，不会被minimize掉
+    //     .use(webpack.BannerPlugin, [{
+    //         banner: 'fullhash:[fullhash], chunkhash:[chunkhash], name:[name], filebase:[filebase], query:[query], file:[file]'
+    //     }]).end()
     .splitChunks({
         // chunks: 'initial',
         // // minSize: 30000,
@@ -64,7 +70,15 @@ config.mode('production')
                 minChunks: 2, // 限定被拆分的 Chunk 至少被多少个模块引用，不设置或设置为1将导致所有模块被抽离进来
                 // reuseExistingChunk: true,
                 chunks: 'initial'
-            }
+            },
+            // vendor: {
+            //     name: 'vendor',
+            //     // priority: -20,
+            //     minSize: 1,
+            //     minChunks: 1, // 限定被拆分的 Chunk 至少被多少个模块引用，不设置或设置为1将导致所有模块被抽离进来
+            //     // reuseExistingChunk: true,
+            //     chunks: 'async'
+            // }
         }
       })
     .end()
@@ -83,6 +97,23 @@ config.mode('production')
 //     // Even create named uses (loaders)
 //     .use('eslint')
 //       .loader('eslint-loader')
+//     .options({
+//         "ecmaVersion": 2020,
+//         rules: {
+//           semi: 'off'
+//         }
+//       });
+
+// config.module
+//   .rule('jsLoader')
+//     .test(/\.js$/)
+//     .pre()
+//     .include
+//       .add(path.resolve('.'))
+//       .end()
+//     // Even create named uses (loaders)
+//     .use('custom-loader')
+//       .loader('./build/custom-loader')
 //     .options({
 //         "ecmaVersion": 2020,
 //         rules: {
@@ -114,7 +145,50 @@ config
         return args;
     });
 
+// config
+//     .plugin('logBanner')
+//     .use(webpack.BannerPlugin, [
+//         {
+//             banner: 'fullhash:[fullhash], chunkhash:[chunkhash], name:[name], filebase:[filebase], query:[query], file:[file]',
+//             // banner: (yourVariable) => {
+//             //     let map = new Map()
+//             //     return `${JSON.stringify(yourVariable, (key, value) => {
+//             //         if(map.has(value)) return `${key}-repeat-value-${typeof value}`
+//             //         if(key && typeof value === 'object')map.set(value, key)
+//             //         return value
+//             //     }, 4)}`;
+//             // }
+//         },
+//     ])
+
+// config
+//     .plugin('AddModuleFilename')
+//     .use(class {
+//         constructor(options) { this.options = options }
+//         apply(compiler) {
+//             compiler.hooks.compilation.tap("AddModuleFilename", compilation => {
+//                 compilation.hooks.optimizeModules.tap("AddModuleFilename", modules => {
+//                     // if (module.resource?.includes('entry1')) {
+//                         // console.log(Object.assign({}, modules[1], {
+//                         //     dependencies: ''
+//                         // }))
+//                     modules.forEach(v => {
+//                         if (v.userRequest?.includes('entry1')) {
+//                             // v._source._value = `/* ${v._name} */\n` + v._source._value
+//                             console.log(v._source.source);
+//                         }
+//                         });
+//                     // }
+//                 })
+//             })
+//         }
+//     }, [
+//         {
+//             banner: 'fullhash:[fullhash], chunkhash:[chunkhash], name:[name], filebase:[filebase], query:[query], file:[file]',
+//         },
+//     ])
+
 let cc = config.toConfig();
 
 module.exports = cc;
-console.log(webpackChain.toString(cc));
+// console.log(webpackChain.toString(cc));
