@@ -156,8 +156,11 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
+/* filename: /Users/meitu/Documents/code/test-case/webpack-chain/build/custom-loader.js!/Users/meitu/Documents/code/test-case/webpack-chain/lib.js */
+
+/* comment by loader */
 module.exports.num1 = 123
 
 module.exports.num2 = 456
@@ -178,13 +181,16 @@ module.exports = __webpack_require__(7);
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
+/* filename: /Users/meitu/Documents/code/test-case/webpack-chain/build/custom-loader.js!/Users/meitu/Documents/code/test-case/webpack-chain/entry2.js */
+
+/* comment by loader */
 const { num1, num2 } = __webpack_require__(0);
 const sum = __webpack_require__(1);
 // import n1 from './normal1';
 // import n2 from './normal2';
 const n3 = __webpack_require__(2) // 一个独立的module，若无共同引或其它规则，不会被webpack当作一个chunk，而是作为引用其的chunk的依赖，进行相关打包
 
-module.exports = sum(num1, num2)
+window.objj2 = sum(num1, num2)
 
 /***/ })
 /******/ ]);

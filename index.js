@@ -104,22 +104,18 @@ config.mode('production')
 //         }
 //       });
 
-// config.module
-//   .rule('jsLoader')
-//     .test(/\.js$/)
-//     .pre()
-//     .include
-//       .add(path.resolve('.'))
-//       .end()
-//     // Even create named uses (loaders)
-//     .use('custom-loader')
-//       .loader('./build/custom-loader')
-//     .options({
-//         "ecmaVersion": 2020,
-//         rules: {
-//           semi: 'off'
-//         }
-//       });
+config.module
+  .rule('jsLoader')
+    .test(/\.js$/)
+    .pre()
+    .include
+      .add(path.resolve('.'))
+      .end()
+    // Even create named uses (loaders)
+    .use('custom-loader')
+      .loader('./build/custom-loader')
+    // .options({
+    // });
 
 config.plugin('lint').use(ESLintPlugin, [
     {
@@ -161,32 +157,23 @@ config
 //         },
 //     ])
 
-// config
-//     .plugin('AddModuleFilename')
-//     .use(class {
-//         constructor(options) { this.options = options }
-//         apply(compiler) {
-//             compiler.hooks.compilation.tap("AddModuleFilename", compilation => {
-//                 compilation.hooks.optimizeModules.tap("AddModuleFilename", modules => {
-//                     // if (module.resource?.includes('entry1')) {
-//                         // console.log(Object.assign({}, modules[1], {
-//                         //     dependencies: ''
-//                         // }))
-//                     modules.forEach(v => {
-//                         if (v.userRequest?.includes('entry1')) {
-//                             // v._source._value = `/* ${v._name} */\n` + v._source._value
-//                             console.log(v._source.source);
-//                         }
-//                         });
-//                     // }
-//                 })
-//             })
-//         }
-//     }, [
-//         {
-//             banner: 'fullhash:[fullhash], chunkhash:[chunkhash], name:[name], filebase:[filebase], query:[query], file:[file]',
-//         },
-//     ])
+
+const AddCommentByModifyChunkPlugin = require('./plugins/AddCommentByModifyChunkPlugin');
+config
+    .plugin('TestModuleFilename')
+    .use(AddCommentByModifyChunkPlugin)
+
+
+const AddCommentByNextWayPlugin = require('./plugins/AddCommentByNextWayPlugin')
+config
+    .plugin('AddModuleFilename')
+    .use(AddCommentByNextWayPlugin)
+
+
+const AddCommentByAddDepPlugin = require('./plugins/AddCommentByAddDepPlugin');
+config
+    .plugin('AddModuleFilename2')
+    .use(AddCommentByAddDepPlugin)
 
 let cc = config.toConfig();
 

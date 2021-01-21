@@ -1,3 +1,6 @@
+/**
+ * code before
+ */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// install a JSONP callback for chunk loading
 /******/ 	function webpackJsonpCallback(data) {
@@ -236,12 +239,15 @@ module.exports = __webpack_require__(4);
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
+/* filename: /Users/meitu/Documents/code/test-case/webpack-chain/build/custom-loader.js!/Users/meitu/Documents/code/test-case/webpack-chain/entry1.js */
+
+/* comment by loader */
 const sum = __webpack_require__(1);
 const { subAsync } = __webpack_require__(5)
 // const lib = require('./lib'); // 如果有这行引用，与入口2共同引用，则会被抽到 common
 const n3 = __webpack_require__(2) // 当入口1这里也引用（入口2先单独引用），则在common split的规则下，被归到common Chunk中
 
-module.exports = {
+window.objj = {
     getSum: function(...args) {
         return sum(...args)
     },
@@ -251,7 +257,15 @@ module.exports = {
             __webpack_require__.e(/* import() */ 3).then(__webpack_require__.t.bind(null, 0, 7)),
             // 异步module都会被当成一个chunk并被输出到一个对应的bundle中，并不会与上面的异步module归到同一个Chunk以及打包到同一个bundle中
             __webpack_require__.e(/* import() */ 4).then(__webpack_require__.t.bind(null, 8, 7)),
-        ]).then(cb)
+        ]).then(([m1, m2]) => {
+            let args = [
+                m1.num1,
+                m1.num2,
+                m2.num1,
+                m2.num2
+            ]
+            cb.apply(null, args)
+        })
     },
     subAsync
 }
@@ -260,6 +274,9 @@ module.exports = {
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
+/* filename: /Users/meitu/Documents/code/test-case/webpack-chain/build/custom-loader.js!/Users/meitu/Documents/code/test-case/webpack-chain/sub_async.js */
+
+/* comment by loader */
 module.exports = {
     subAsync(cb) {
         __webpack_require__.e(/* import() */ 5).then(__webpack_require__.t.bind(null, 9, 7)).then(v => cb('arg1', v.num))
@@ -270,3 +287,6 @@ module.exports = {
 
 /***/ })
 /******/ ]);
+/**
+ * code after
+ */
