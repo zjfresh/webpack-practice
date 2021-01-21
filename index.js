@@ -1,13 +1,12 @@
-const path = require('path');
-const fs = require('fs');
+const path = require('path')
 
-const webpackChain = require('webpack-chain');
-const webpack = require('webpack');
+const webpackChain = require('webpack-chain')
+// const webpack = require('webpack')
 
-const ESLintPlugin = require('eslint-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-let config = new webpackChain();
+let config = new webpackChain()
 
 
 // (function deleteall(path) {
@@ -36,7 +35,7 @@ config.mode('production')
     .entry('entry2')
     .add('./entry2.js')
     .end()
-    
+
     .optimization
     // .set('chunkIds', 'named')
     .minimize(false)
@@ -69,7 +68,7 @@ config.mode('production')
                 minSize: 1,
                 minChunks: 2, // 限定被拆分的 Chunk 至少被多少个模块引用，不设置或设置为1将导致所有模块被抽离进来
                 // reuseExistingChunk: true,
-                chunks: 'initial'
+                chunks: 'initial',
             },
             // vendor: {
             //     name: 'vendor',
@@ -79,12 +78,12 @@ config.mode('production')
             //     // reuseExistingChunk: true,
             //     chunks: 'async'
             // }
-        }
-      })
+        },
+    })
     .end()
 
     .output /* .path(path.resolve('dist')) */
-    .filename('[name].bundle.js');
+    .filename('[name].bundle.js')
 
 // Create named rules which can be modified later
 // config.module
@@ -105,15 +104,15 @@ config.mode('production')
 //       });
 
 config.module
-  .rule('jsLoader')
+    .rule('jsLoader')
     .test(/\.js$/)
     .pre()
     .include
-      .add(path.resolve('.'))
-      .end()
+    .add(path.resolve('.'))
+    .end()
     // Even create named uses (loaders)
     .use('custom-loader')
-      .loader('./build/custom-loader')
+    .loader('./build/custom-loader')
     // .options({
     // });
 
@@ -127,7 +126,7 @@ config.plugin('lint').use(ESLintPlugin, [
         },
         // fix: true
     },
-]);
+])
 
 config
     .plugin('htmlTemplate')
@@ -138,8 +137,8 @@ config
         },
     ])
     .tap((args) => {
-        return args;
-    });
+        return args
+    })
 
 // config
 //     .plugin('logBanner')
@@ -158,7 +157,7 @@ config
 //     ])
 
 
-const AddCommentByModifyChunkPlugin = require('./plugins/AddCommentByModifyChunkPlugin');
+const AddCommentByModifyChunkPlugin = require('./plugins/AddCommentByModifyChunkPlugin')
 config
     .plugin('TestModuleFilename')
     .use(AddCommentByModifyChunkPlugin)
@@ -170,12 +169,12 @@ config
     .use(AddCommentByNextWayPlugin)
 
 
-const AddCommentByAddDepPlugin = require('./plugins/AddCommentByAddDepPlugin');
+const AddCommentByAddDepPlugin = require('./plugins/AddCommentByAddDepPlugin')
 config
     .plugin('AddModuleFilename2')
     .use(AddCommentByAddDepPlugin)
 
-let cc = config.toConfig();
+let cc = config.toConfig()
 
-module.exports = cc;
+module.exports = cc
 // console.log(webpackChain.toString(cc));
