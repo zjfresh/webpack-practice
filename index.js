@@ -8,32 +8,36 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 let config = new webpackChain()
 
+// eslint-disable-next-line no-constant-condition
+if (false) {
+    (function deleteall(path) {
+        const fs = require('fs')
 
-// (function deleteall(path) {
-//     var files = [];
-//     if(fs.existsSync(path)) {
-//         files = fs.readdirSync(path);
-//         files.forEach(function(file, index) {
-//             var curPath = path + "/" + file;
-//             if(fs.statSync(curPath).isDirectory()) { // recurse
-//                 deleteall(curPath);
-//             } else { // delete file
-//                 fs.unlinkSync(curPath);
-//             }
-//         });
-//         fs.rmdirSync(path);
-//     }
-// }('dist'))
+        var files = []
+        if(fs.existsSync(path)) {
+            files = fs.readdirSync(path)
+            files.forEach(function(file) {
+                var curPath = path + '/' + file
+                if(fs.statSync(curPath).isDirectory()) { // recurse
+                    deleteall(curPath)
+                } else { // delete file
+                    fs.unlinkSync(curPath)
+                }
+            })
+            fs.rmdirSync(path)
+        }
+    }('dist'))
+}
 
 
 // config.mode('development')
 config.mode('production')
 
-    .entry('entry1').add('./entry1.js')
+    .entry('entry1').add('./src/base-config/entry1.js')
     .end()
 
     .entry('entry2')
-    .add('./entry2.js')
+    .add('./src/base-config/entry2.js')
     .end()
 
     .optimization
@@ -84,6 +88,11 @@ config.mode('production')
 
     .output /* .path(path.resolve('dist')) */
     .filename('[name].bundle.js')
+    .end()
+
+    .resolve
+    .alias
+    .set('@', path.resolve('src'))
 
 // Create named rules which can be modified later
 // config.module
@@ -112,7 +121,7 @@ config.module
     .end()
     // Even create named uses (loaders)
     .use('custom-loader')
-    .loader('./build/custom-loader')
+    .loader('./src/loaders/custom-loader')
     // .options({
     // });
 
@@ -157,19 +166,19 @@ config
 //     ])
 
 
-const AddCommentByModifyChunkPlugin = require('./plugins/AddCommentByModifyChunkPlugin')
+const AddCommentByModifyChunkPlugin = require('./src/plugins/AddCommentByModifyChunkPlugin')
 config
     .plugin('TestModuleFilename')
     .use(AddCommentByModifyChunkPlugin)
 
 
-const AddCommentByNextWayPlugin = require('./plugins/AddCommentByNextWayPlugin')
+const AddCommentByNextWayPlugin = require('./src/plugins/AddCommentByNextWayPlugin')
 config
     .plugin('AddModuleFilename')
     .use(AddCommentByNextWayPlugin)
 
 
-const AddCommentByAddDepPlugin = require('./plugins/AddCommentByAddDepPlugin')
+const AddCommentByAddDepPlugin = require('./src/plugins/AddCommentByAddDepPlugin')
 config
     .plugin('AddModuleFilename2')
     .use(AddCommentByAddDepPlugin)
